@@ -17,6 +17,7 @@ public class SongController{
 
     @GetMapping("/song/{id}")
     Song getSongById(@PathVariable("id") Long id) {
+        System.out.println("made it here");
         return songService.getSong(id);
     }
     

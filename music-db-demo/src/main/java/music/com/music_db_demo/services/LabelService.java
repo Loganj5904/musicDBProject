@@ -22,5 +22,9 @@ public class LabelService {
     public Label getLabel(Long id){
         return labelRepository.findById(id);
     }
+    
+    public void saveLabel(Label label){
+        labelRepository.save(label);
+    }
 
 }

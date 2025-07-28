@@ -8,5 +8,6 @@ import music.com.music_db_demo.modals.Album;
 
 public interface AlbumRepository extends JpaRepository<Album, Integer>{
 
+    Album findById(Long id);
     
 }  

@@ -1,0 +1,26 @@
+package music.com.music_db_demo.services;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+import music.com.music_db_demo.modals.Genre;
+import music.com.music_db_demo.repositories.GenreRepository;
+
+
+@Service
+public class GenreService {
+
+    @Autowired
+    GenreRepository genreRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(GenreService.class);
+
+    @Transactional
+    public Genre getGenre(Long id){
+        return genreRepository.findById(id);
+    }
+
+}

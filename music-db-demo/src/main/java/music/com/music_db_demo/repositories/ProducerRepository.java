@@ -7,5 +7,5 @@ import music.com.music_db_demo.modals.Producer;
 
 public interface ProducerRepository extends JpaRepository<Producer, Integer>{
 
-    
+    Producer findById(Long id);
 }  

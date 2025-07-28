@@ -7,5 +7,5 @@ import music.com.music_db_demo.modals.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Integer>{
 
-    
+    Genre findById(Long id);
 }  

@@ -16,7 +16,7 @@ public class Song {
 
     private String song_name;
 
-    private int net_listeners;
+    private Long streams;
 
     @ManyToOne
     @JoinColumn(name = "album_id", nullable = false)
@@ -42,8 +42,8 @@ public class Song {
         return song_name;
     }
 
-    public int getNetListeners(){
-        return net_listeners;
+    public Long getStreams(){
+        return streams;
     }
 
     public Album getAlbum(){
@@ -70,8 +70,8 @@ public class Song {
         this.song_name = name;
     }
 
-    public void setNetListeners(int listeners){
-        this.net_listeners = listeners;
+    public void setStreams(Long streams){
+        this.streams = streams;
     }
 
     public void setAlbum(Album album){

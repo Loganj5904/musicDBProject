@@ -13,7 +13,7 @@ public class Genre {
 
     private String genre_name;
 
-    private int net_listeners;
+    //private int net_listeners;
 
     public Long getId(){
         return id;
@@ -23,9 +23,11 @@ public class Genre {
         return genre_name;
     }
 
+    /* 
     public int getNetListeners(){
         return net_listeners;
     }
+        */
 
     public void setId(Long id){
         this.id = id;
@@ -35,7 +37,9 @@ public class Genre {
         this.genre_name = name;
     }
 
+    /* 
     public void setNetListeners(int listeners){
         this.net_listeners = listeners;
     }
+        */
 }

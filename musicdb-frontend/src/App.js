@@ -657,18 +657,22 @@ function App() {
 
             {/* lists supplied by SmartSearchController */}
             {renderList("📀 Albums:", result.albums_by_artist)}
-            {renderList("🎵 Songs:", result.songs_by_artist, "title")}
+            {/* {renderList("🎵 Songs:", result.songs_by_artist, "title")} */}
+            {renderList("🎵 Songs:", result.songs_by_artist, "name")}
 
             {renderList("📀 Albums (by label):", result.albums_by_label)}
-            {renderList("🎵 Songs (by genre):", result.songs_by_genre, "title")}
-            {renderList(
+            {/* {renderList("🎵 Songs (by genre):", result.songs_by_genre, "title")} */}
+            {renderList("🎵 Songs (by genre):", result.songs_by_genre, "name")}
+            {/* {renderList(
               "🎵 Songs (by producer):",
               result.songs_by_producer,
               "title"
-            )}
+            )} */}
+            {renderList("🎵 Songs (by producer):", result.songs_by_producer, "name")}
 
             {/* direct song hit */}
-            {renderList("🎵 Songs:", result.song, "title")}
+            {/* {renderList("🎵 Songs:", result.song, "title")} */}
+            {renderList("🎵 Songs:", result.song, "name")}
           </div>
         )}
 

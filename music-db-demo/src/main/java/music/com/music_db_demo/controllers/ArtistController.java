@@ -1,5 +1,8 @@
 package music.com.music_db_demo.controllers;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import music.com.music_db_demo.modals.Artist;
 import music.com.music_db_demo.services.ArtistService;
-import java.util.List;
-import java.util.Optional;
 
 
 
@@ -75,8 +76,16 @@ public class ArtistController{
         ResponseEntity<?> entity = new ResponseEntity<>(artist_name + " deleted successfully", HttpStatus.CREATED);
         return entity;
     }
-        
-        
+    
+    // ArtistController.java 
+
+    @GetMapping("/test") 
+
+    public ResponseEntity<?> testArtist() { 
+        var artist = artistService.getArtistByName("Taylor Swift");  // Use a known value 
+        System.out.println("Fetched artist: " + artist); 
+        return ResponseEntity.ok(artist); 
+}     
     
 
 }

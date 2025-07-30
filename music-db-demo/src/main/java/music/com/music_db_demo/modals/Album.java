@@ -15,9 +15,9 @@ public class Album {
 
     private String album_name;
 
-    @ManyToOne
-    @JoinColumn(name = "producer_id", nullable = false)
-    private Producer producer;
+    //@ManyToOne
+    //@JoinColumn(name = "producer_id", nullable = false)
+    //private Producer producer;
 
     @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
@@ -35,9 +35,11 @@ public class Album {
         return album_name;
     }
 
+    /* 
     public Producer getProducer(){
         return producer;
     }
+        */
 
     public Artist getArtist(){
         return artist;
@@ -56,10 +58,11 @@ public class Album {
         this.album_name = name;
     }
 
-
+/* 
     public void setProducer(Producer producer){
         this.producer = producer;
     }
+      */  
 
     public void setArtist(Artist artist){
         this.artist = artist;

@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import music.com.music_db_demo.modals.Artist;
 import music.com.music_db_demo.modals.Label;
 import music.com.music_db_demo.repositories.LabelRepository;
+import java.util.List;
+import java.util.Optional;
+
 
 
 @Service
@@ -19,12 +23,39 @@ public class LabelService {
     private static final Logger logger = LoggerFactory.getLogger(LabelService.class);
 
     @Transactional
-    public Label getLabel(Long id){
+    public List<Label> getAllLabels() {
+        return labelRepository.findAllLabels();
+    }
+
+    
+    @Transactional
+    public Optional<Label> getLabelById(Long id){
         return labelRepository.findById(id);
     }
-    
-    public void saveLabel(Label label){
-        labelRepository.save(label);
+        
+
+    @Transactional
+    public Label getLabelByName(String label_name){
+        return labelRepository.findByName(label_name);
     }
+
+    
+
+    @Transactional
+    public Label saveLabel(Label label){
+        return labelRepository.save(label);
+    }
+
+    @Transactional
+    public void deleteLabel(Long id) {
+        labelRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteLabelByName(String name) {
+        labelRepository.delete(labelRepository.findByName(name));
+    }
+        
+        
 
 }

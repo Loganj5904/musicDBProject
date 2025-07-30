@@ -1,0 +1,27 @@
+<!-- Save as index.html in your project root or static resources folder -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MusicDB Frontend</title>
+</head>
+<body>
+    <h1>Find Artist by ID</h1>
+    <input type="number" id="artistId" placeholder="Enter Artist ID">
+    <button onclick="getArtist()">Get Artist</button>
+    <pre id="result"></pre>
+
+    <script>
+        function getArtist() {
+            const id = document.getElementById('artistId').value;
+            fetch(`http://localhost:8080/api/artists/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error: ' + error;
+                });
+        }
+    </script>
+</body>
+</html>

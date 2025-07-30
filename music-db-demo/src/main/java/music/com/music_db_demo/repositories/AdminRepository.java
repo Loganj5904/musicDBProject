@@ -7,7 +7,8 @@ import music.com.music_db_demo.modals.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Long>{
 
-    Admin findByUserName(String username);
+    @Query("SELECT a FROM Admin a WHERE a.username = :username")
+    Admin findByUserName(@Param ("username") String username);
 } 
     
 

@@ -41,6 +41,7 @@ public class GenreController{
 
     
 
+/*
     @GetMapping("/genre/attribute/id")
     List<Long> projectOnColId() {
         return genreService.projectOnColId();
@@ -51,7 +52,7 @@ public class GenreController{
         return genreService.projectOnColName();
     }
 
-    /* 
+    
     @GetMapping("/genre/{listeners}")
     Genre getArtistByListeners(@PathVariable("listeners") Integer net_listeners) {
         return genreService.getGenreByListeners(net_listeners);

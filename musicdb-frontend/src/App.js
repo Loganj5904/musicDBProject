@@ -2,6 +2,7 @@
 // // // import React, { useState } from 'react';
 // // // import axios from 'axios';
 
+
 // // // function App() {
 // // //   const [query, setQuery] = useState('');
 // // //   const [adminUser, setAdminUser] = useState('');
@@ -543,6 +544,10 @@ function App() {
   const [adminPass, setAdminPass] = useState("");
   const [adminStatus, setAdminStatus] = useState("");
   const [showAdmin, setShowAdmin] = useState(false);
+  const [regUser, setRegUser] = useState("");
+  const [regPass, setRegPass] = useState("");
+  const [registerStatus, setRegisterStatus] = useState("");
+  const [showRegister, setShowRegister] = useState(false);
 
   /* ──────────────────────────  helpers  ─────────────────────────── */
   const smartSearch = async () => {
@@ -576,6 +581,164 @@ function App() {
       setAdminStatus("Login failed");
     }
   };
+
+  const handleRegister = async () => {
+    if (!regUser || !regPass) return;
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/register/${encodeURIComponent(regUser)}/${encodeURIComponent(
+          regPass
+        )}`
+      );
+      setRegisterStatus(res.data);
+      console.log("Registration Complete", res.data);
+    } catch {
+      setRegisterStatus("Registration failed");
+    }
+  };
+
+  /* Adding Entries */
+  const isLoggedIn = adminStatus !== "Login failed" && adminStatus !== "";
+
+  const handleAddSong = async () => {
+    if (!newSongName || !newArtistName || !newStreams || !newAlbumName || !newProducerName || !newLabelName || !newGenreName) {
+      setAddSongStatus("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/song/add/${encodeURIComponent(newSongName)}/${encodeURIComponent(newArtistName)}/${encodeURIComponent(newStreams)}/${encodeURIComponent(newAlbumName)}/${encodeURIComponent(newProducerName)}/${encodeURIComponent(newGenreName)}`
+      );
+      setAddSongStatus("Song added successfully!");
+      console.log("Song added successfully:", res.data);
+    } catch (error) {
+      setAddSongStatus("Failed to add song");
+      console.error(error);
+    }
+  };
+
+  const handleAddArtist = async () => {
+    if (!newArtistName) {
+      setAddArtistStatus("Please fill in the field");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/artist/add/${encodeURIComponent(newArtistName)}`
+      );
+      setAddArtistStatus("Artist added successfully!");
+      console.log("Artist added successfully:", res.data);
+    } catch (error) {
+      setAddArtistStatus("Failed to add artist");
+      console.error(error);
+    }
+  };
+
+  const handleAddGenre = async () => {
+    if (!newGenreName) {
+      setAddGenreStatus("Please fill in the field");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/genre/add/${encodeURIComponent(newGenreName)}`
+      );
+      setAddGenreStatus("Genre added successfully!");
+      console.log("Genre added successfully:", res.data);
+    } catch (error) {
+      setAddGenreStatus("Failed to add genre");
+      console.error(error);
+    }
+  };
+
+  const handleAddProducer = async () => {
+    if (!newProducerName) {
+      setAddProducerStatus("Please fill in the field");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/producer/add/${encodeURIComponent(newProducerName)}`
+      );
+      setAddProducerStatus("Producer added successfully!");
+      console.log("Producer added successfully:", res.data);
+    } catch (error) {
+      setAddProducerStatus("Failed to add producer");
+      console.error(error);
+    }
+  };
+
+  const handleAddLabel = async () => {
+    if (!newLabelName) {
+      setAddLabelStatus("Please fill in the field");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/label/add/${encodeURIComponent(newLabelName)}`
+      );
+      setAddLabelStatus("Label added successfully!");
+      console.log("Label added successfully:", res.data);
+    } catch (error) {
+      setAddLabelStatus("Failed to add label");
+      console.error(error);
+    }
+  };
+
+
+  const handleAddAlbum = async () => {
+    if (!newArtistName || !newAlbumName || !newLabelName) {
+      setAddAlbumStatus("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/album/add/${encodeURIComponent(newAlbumName)}/${encodeURIComponent(newArtistName)}/${encodeURIComponent(newLabelName)}`
+      );
+      setAddAlbumStatus("Album added successfully!");
+      console.log("Album added successfully:", res.data);
+    } catch (error) {
+      setAddAlbumStatus("Failed to add album");
+      console.error(error);
+    }
+  };
+
+  
+
+  const [newSongName, setNewSongName] = useState("");
+  const [newArtistName, setNewArtistName] = useState("");
+  const [newStreams, setNewStreams] = useState("");
+  const [newAlbumName, setNewAlbumName] = useState("");
+  const [newProducerName, setNewProducerName] = useState("");
+  const [newLabelName, setNewLabelName] = useState("");
+  const [newGenreName, setNewGenreName] = useState("");
+  const [addSongStatus, setAddSongStatus] = useState("");
+  const [addArtistStatus, setAddArtistStatus] = useState("");
+  const [addGenreStatus, setAddGenreStatus] = useState("");
+  const [addLabelStatus, setAddLabelStatus] = useState("");
+  const [addProducerStatus, setAddProducerStatus] = useState("");
+  const [addAlbumStatus, setAddAlbumStatus] = useState("");
+
+ 
+
+
+
+
+
+
+  
+
+    
+
+
+
+
 
   /* ───────────────────────────  render  ─────────────────────────── */
   const renderList = (title, items, nameKey = "name") =>
@@ -615,6 +778,25 @@ function App() {
         >
           Admin Login
         </button>
+
+        
+
+        <input 
+          value = {regUser}
+          onChange = {(e) => setRegUser(e.target.value)}
+          placeholder = "New Username"
+          style={{ padding: "0.5em", width: "150px" }}
+        />
+
+        <input 
+          value = {regPass}
+          onChange = {(e) => setRegPass(e.target.value)}
+          placeholder = "New Password"
+          style={{ padding: "0.5em", width: "150px" }}
+        />
+
+        <button onClick={handleRegister}>Register</button>
+
       </nav>
 
       {/* ────────── search box ────────── */}
@@ -650,10 +832,48 @@ function App() {
             }}
           >
             {/* single entities */}
-            {result.artist && <h3>🎤 Artist: {result.artist.name}</h3>}
+            {!result.isAlbumSearch && result.artist && <h3>🎤 Artist: {result.artist.name}</h3>}
             {result.producer && <h3>🎚️ Producer: {result.producer.name}</h3>}
             {result.genre && <h3>🎼 Genre: {result.genre.name}</h3>}
-            {result.label && <h3>🏷️ Label: {result.label.name}</h3>}
+            {!result.isAlbumSearch && result.label && <h3>🏷️ Label: {result.label.name}</h3>}
+            {/*{result.album && <h3>📀 Album: {result.album.name}</h3>}*/}
+            {result.album && (
+              <>
+              <h3>📀 Album: {result.album.name}</h3>
+              <p>🎤 Artist: {result.album.artist.name}</p>
+              <p>🏷️ Label: {result.label.name}</p>
+              {renderList("🎵 Songs on Album:", result.songs_on_album, "name")}
+              </>
+            )}
+
+
+            {/*{result.song && <h3>🎵 Song: {result.song.name}</h3>}*/}
+            {result.song && result.song.length === 1 && (
+              <div>
+                <h3>🎵 Song: {result.song[0].name}</h3>
+                <p>🎤 Artist: {result.song[0].artist?.name}</p>
+                <p>🎼 Genre: {result.song[0].genre?.name}</p>
+                <p>🎚️ Producer: {result.song[0].producer?.name}</p>
+                <p>📀 Album: {result.song[0].album?.name}</p>
+              </div>
+            
+            )}
+
+            {result.song && result.song.length > 1 && (
+              <div>
+                <h3>🎵 Songs:</h3>
+                {result.song.map((song) => (
+                  <div key={song.id} style={{ marginBottom: "1rem" }}>
+                    <h4>🎵 Song: {song.name}</h4>
+                    <p>🎤 Artist: {song.artist?.name}</p>
+                    <p>🎼 Genre: {song.genre?.name}</p>
+                    <p>🎚️ Producer: {song.producer?.name}</p>
+                    <p>📀 Album: {song.album?.name}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            
 
             {/* lists supplied by SmartSearchController */}
             {renderList("📀 Albums:", result.albums_by_artist)}
@@ -669,10 +889,12 @@ function App() {
               "title"
             )} */}
             {renderList("🎵 Songs (by producer):", result.songs_by_producer, "name")}
+            {/*{renderList("🎵 Songs on Album:", result.songs_on_album, "name")}*/}
+
 
             {/* direct song hit */}
             {/* {renderList("🎵 Songs:", result.song, "title")} */}
-            {renderList("🎵 Songs:", result.song, "name")}
+            {!result.isSongSearch && renderList("🎵 Songs:", result.song, "name")}
           </div>
         )}
 
@@ -705,6 +927,56 @@ function App() {
             <pre>{adminStatus}</pre>
           </div>
         )}
+        {isLoggedIn && (
+          <div style={{ marginTop: "2em" }}>
+
+            <h3>Add Artist</h3>
+            <input placeholder="Artist Name" value={newArtistName} onChange={(e) => setNewArtistName(e.target.value)} />
+            <button onClick={handleAddArtist}>Submit Artist</button>
+            <p>{addArtistStatus}</p>
+
+            <h3>Add Genre</h3>
+            <input placeholder="Genre Name" value={newGenreName} onChange={(e) => setNewGenreName(e.target.value)} />
+            <button onClick={handleAddGenre}>Submit Genre</button>
+            <p>{addGenreStatus}</p>
+
+            <h3>Add Label</h3>
+            <input placeholder="Label Name" value={newLabelName} onChange={(e) => setNewLabelName(e.target.value)} />
+            <button onClick={handleAddLabel}>Submit Label</button>
+            <p>{addLabelStatus}</p>
+
+            <h3>Add Producer</h3>
+            <input placeholder="Producer Name" value={newProducerName} onChange={(e) => setNewProducerName(e.target.value)} />
+            <button onClick={handleAddProducer}>Submit Producer</button>
+            <p>{addProducerStatus}</p>
+
+            <h3>Add Album</h3>
+            <input placeholder="Album Name" value={newAlbumName} onChange={(e) => setNewAlbumName(e.target.value)} />
+            <input placeholder="Artist Name" value={newArtistName} onChange={(e) => setNewArtistName(e.target.value)} />
+            <input placeholder="Label Name" value={newLabelName} onChange={(e) => setNewLabelName(e.target.value)} />
+
+            <button onClick={handleAddAlbum}>Submit Album</button>
+            <p>{addAlbumStatus}</p>
+
+
+            <h3>Add Song</h3>
+            <input placeholder="Song Name" value={newSongName} onChange={(e) => setNewSongName(e.target.value)} />
+            <input placeholder="Artist Name" value={newArtistName} onChange={(e) => setNewArtistName(e.target.value)} />
+            <input placeholder="Streams" value={newStreams} onChange={(e) => setNewStreams(e.target.value)} />
+            <input placeholder="Album Name" value={newAlbumName} onChange={(e) => setNewAlbumName(e.target.value)} />
+            <input placeholder="Producer Name" value={newProducerName} onChange={(e) => setNewProducerName(e.target.value)} />
+            <input placeholder="Label Name" value={newLabelName} onChange={(e) => setNewLabelName(e.target.value)} />
+            <input placeholder="Genre Name" value={newGenreName} onChange={(e) => setNewGenreName(e.target.value)} />
+    
+            <button onClick={handleAddSong}>Submit Song</button>
+            <p>{addSongStatus}</p>
+
+          
+
+            
+          </div>
+    )}
+
       </div>
     </div>
   );

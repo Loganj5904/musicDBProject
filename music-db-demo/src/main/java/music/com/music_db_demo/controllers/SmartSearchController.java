@@ -31,6 +31,7 @@ public class SmartSearchController {
     public ResponseEntity<?> smartSearch(@RequestParam("query") String query) {
         Map<String, Object> results = new HashMap<>();
 
+
         // Try to match as artist
         var artist = artistService.getArtistByName(query);
         if (artist != null) {
@@ -43,6 +44,8 @@ public class SmartSearchController {
         var songs = songService.getSongByName(query);
         if (!songs.isEmpty()) {
             results.put("song", songs);
+            results.put("isSongSearch", true);
+            //results.put(key:"artist_of_song"), songs.ge // 
         }
 
         // Try producer
@@ -66,9 +69,23 @@ public class SmartSearchController {
             results.put("albums_by_label", albumService.getAlbumByLabel(query));
         }
 
+        // Album
+        var album = albumService.getAlbumByName(query);
+        if (album != null) {
+            results.put("album", album);
+            results.put("artist", album.getArtist());
+            results.put("label", album.getlabel());
+            results.put("songs_on_album", songService.getSongByAlbum(query));
+            results.put("isAlbumSearch", true);
+        }
+
         if (results.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No match found");
         }
+
+        //results.put("debug_message", "Hello from the backend!");
+
+        
 
         return ResponseEntity.ok(results);
     }

@@ -1,0 +1,14 @@
+How To Run The Application:
+- Navigate to the application.properties file and change the 
+localhost:xxxx/database_name, username, and password to match with your information for MySQL.
+- Make sure that your MySQL server is running.
+- Navigate to MusicDbDemoApplication.java and run the main() method.
+- In Windows Powershell, run "npm start". 
+  - You may need to run "npm install" first or download NodeJs, if you don't have it.
+
+How To Use The Application:
+Once the app is running, you will be able to search for albums, artists, producers, labels, genres, and songs.
+In order to add songs and albums, you will need to register. In the top left corner, there are fields to enter
+a username and password, and once those are entered, press register. Press "Admin Login", and you should, then, 
+be able to use your newly created username and password to login and add songs. 
+We have provided MySQL queries that will create and populate the tables.
